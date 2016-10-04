@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.swisscom.zuul.iml" filepath="$PROJECT_DIR$/.idea/modules/com.swisscom.zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.swisscom.zuul_main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.swisscom.zuul_main.iml" group="com.swisscom.zuul" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.swisscom.zuul_test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.swisscom.zuul_test.iml" group="com.swisscom.zuul" />
+    </modules>
+  </component>
+</project>
