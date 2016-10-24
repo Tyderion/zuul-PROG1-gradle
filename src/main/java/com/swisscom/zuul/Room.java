@@ -76,6 +76,14 @@ public class Room {
         return exits.get(Direction.fromString(direction));
     }
 
+    /**
+     * Return the room that is reached if we go from this room in direction
+     * "direction". If there is no room in that direction, return null.
+     */
+    public Room getExit(Direction direction) {
+        return exits.get(direction);
+    }
+
     public boolean isVisited() {
         return visited;
     }

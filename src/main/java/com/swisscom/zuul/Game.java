@@ -26,7 +26,7 @@ import com.swisscom.zuul.services.Parser;
 class Game {
     private Parser parser;
     private Room currentRoom;
-    private Mapper mapper = new Mapper(5);
+    private Mapper mapper = new Mapper();
 
     /**
      * Create the game and initialise its internal map.
