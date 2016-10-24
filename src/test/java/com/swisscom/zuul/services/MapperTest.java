@@ -1,5 +1,7 @@
 package com.swisscom.zuul.services;
 
+import com.swisscom.zuul.Room;
+import com.swisscom.zuul.components.Direction;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,35 +12,68 @@ import static org.junit.Assert.*;
 public class MapperTest {
 
     @Test
-    public void testPrintMapFromRoomSize5() {
-        Mapper m = new Mapper(5);
+    public void testEmptyMap() {
+        Mapper m = new Mapper();
         String map = m.mapStartingAt(null);
 
-        assertEquals("-----------\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "|         |\n" +
-                "-----------", map);
+        assertEquals("", map);
     }
 
     @Test
-    public void testPrintMapFromRoomSize3() {
-        Mapper m = new Mapper(3);
-        String map = m.mapStartingAt(null);
+    public void testMapSingleRoom() {
+        Mapper m = new Mapper();
+        Room room = new Room("Irrelevant");
+        room.setVisited(true);
+        String map = m.mapStartingAt(room);
 
-        assertEquals("-------\n" +
-                "|     |\n" +
-                "|     |\n" +
-                "|     |\n" +
-                "|     |\n" +
-                "|     |\n" +
-                "-------", map);
+        assertEquals("WWW" +
+                "WRW" +
+                "WWW", map);
     }
 
+    @Test
+    public void testMapTwoRoomsWest() {
+        Mapper m = new Mapper();
+        Room room = new Room("Irrelevant");
+        room.setVisited(true);
+        Room second = new Room("Irrelevant again");
+        room.setExit(Direction.WEST, second);
+        String map = m.mapStartingAt(room);
+
+        assertEquals("?WW" +
+                "?RW" +
+                "?WW", map);
+    }
+
+    @Test
+    public void testMapThreeRoomsWestEast() {
+        Mapper m = new Mapper();
+        Room room = new Room("Irrelevant");
+        room.setVisited(true);
+        Room second = new Room("Irrelevant again");
+        Room third = new Room("still irrelevant");
+        room.setExit(Direction.WEST, second);
+        room.setExit(Direction.EAST, third);
+        String map = m.mapStartingAt(room);
+
+        assertEquals("?W?" +
+                "?R?" +
+                "?W?", map);
+    }
+
+    @Test
+    public void testMapThreeRoomsWestWestFirstVisited() {
+        Mapper m = new Mapper();
+        Room room = new Room("Irrelevant");
+        room.setVisited(true);
+        Room second = new Room("Irrelevant again");
+        Room third = new Room("still irrelevant");
+        room.setExit(Direction.WEST, second);
+        second.setExit(Direction.WEST, third);
+        String map = m.mapStartingAt(room);
+
+        assertEquals("?WW" +
+                "?RW" +
+                "?WW", map);
+    }
 }
