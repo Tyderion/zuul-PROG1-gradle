@@ -26,8 +26,8 @@ public class MapperTest {
         room.setVisited(true);
         String map = m.mapStartingAt(room);
 
-        assertEquals("WWW" +
-                "WRW" +
+        assertEquals("WWW\n" +
+                "WRW\n" +
                 "WWW", map);
     }
 
@@ -40,8 +40,8 @@ public class MapperTest {
         room.setExit(Direction.WEST, second);
         String map = m.mapStartingAt(room);
 
-        assertEquals("?WW" +
-                "?RW" +
+        assertEquals("?WW\n" +
+                "?RW\n" +
                 "?WW", map);
     }
 
@@ -56,8 +56,8 @@ public class MapperTest {
         room.setExit(Direction.EAST, third);
         String map = m.mapStartingAt(room);
 
-        assertEquals("?W?" +
-                "?R?" +
+        assertEquals("?W?\n" +
+                "?R?\n" +
                 "?W?", map);
     }
 
@@ -72,8 +72,8 @@ public class MapperTest {
         second.setExit(Direction.WEST, third);
         String map = m.mapStartingAt(room);
 
-        assertEquals("?WW" +
-                "?RW" +
+        assertEquals("?WW\n" +
+                "?RW\n" +
                 "?WW", map);
     }
 }
