@@ -22,6 +22,8 @@ public class Room {
     private String description;
     private HashMap<Direction, Room> exits;        // stores exits of this room.
 
+    private boolean visited = false;
+
     /**
      * Create a room described "description". Initially, it has no exits.
      * "description" is something like "in a kitchen" or "in an open court
@@ -72,6 +74,14 @@ public class Room {
      */
     public Room getExit(String direction) {
         return exits.get(Direction.fromString(direction));
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }
 

@@ -9,6 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 public class Mapper {
     private int gridSize = 5;
 
+    public Mapper() {
+
+    }
     public Mapper(int gridSize) {
         this.gridSize = gridSize;
     }
