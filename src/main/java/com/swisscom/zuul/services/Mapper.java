@@ -12,11 +12,15 @@ public class Mapper {
     public Mapper() {
 
     }
+
     public Mapper(int gridSize) {
         this.gridSize = gridSize;
     }
 
     public String mapStartingAt(Room startingRoom) {
+        if (startingRoom == null) {
+            return "";
+        }
         return this.getGrid();
     }
 
