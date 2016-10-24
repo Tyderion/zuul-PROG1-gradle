@@ -18,7 +18,7 @@ public class Mapper {
         for (int i = 0; i < map1.length; i++) {
             char[] row = map1[i];
             for (int i1 = 0; i1 < row.length; i1++) {
-                row[i1] = ' ';
+                row[i1] = 'W';
             }
         }
     }
@@ -29,36 +29,23 @@ public class Mapper {
         }
         this.map[1][1] = 'R';
         Arrays.stream(Direction.values()).forEach(dir -> {
-            Room exit;
-            switch (dir) {
-                case EAST:
-                    exit = startingRoom.getExit(dir);
-                    if (exit != null) {
+            Room exit = startingRoom.getExit(dir);
+            if (exit != null) {
+                switch (dir) {
+                    case EAST:
+                        this.map[1][2] = '?';
+                        break;
+                    case WEST:
+                        this.map[1][0] = '?';
+                        break;
+                    case NORTH:
+                        this.map[0][1] = '?';
+                        break;
+                    case SOUTH:
+                        this.map[2][1] = '?';
+                        break;
 
-                    } else {
-                        this.map[1][2] = 'W';
-                    }
-                case WEST:
-                    exit = startingRoom.getExit(dir);
-                    if (exit != null) {
-
-                    } else {
-                        this.map[1][0] = 'W';
-                    }
-                case NORTH:
-                    exit = startingRoom.getExit(dir);
-                    if (exit != null) {
-
-                    } else {
-                        this.map[0][1] = 'W';
-                    }
-                case SOUTH:
-                    exit = startingRoom.getExit(dir);
-                    if (exit != null) {
-
-                    } else {
-                        this.map[2][1] = 'W';
-                    }
+                }
             }
         });
         StringBuilder map = new StringBuilder();
@@ -68,7 +55,7 @@ public class Mapper {
             }
             map.append('\n');
         }
-        return map.toString();
+        return map.toString().trim();
     }
 
 }
