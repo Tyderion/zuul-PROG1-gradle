@@ -73,6 +73,8 @@ public class Room {
      * "direction". If there is no room in that direction, return null.
      */
     public Room getExit(String direction) {
+        System.out.println("Direction: " + direction + ": " + Direction.fromString(direction));
+        System.out.println("Direction: west: " + Direction.fromString("west"));
         return exits.get(Direction.fromString(direction));
     }
 

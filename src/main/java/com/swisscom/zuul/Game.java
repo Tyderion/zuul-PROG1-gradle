@@ -27,6 +27,7 @@ class Game {
     private Parser parser;
     private Room currentRoom;
     private Mapper mapper = new Mapper();
+    private Room startingRoom;
 
     /**
      * Create the game and initialise its internal map.
@@ -64,6 +65,8 @@ class Game {
         office.setExit(Direction.WEST, lab);
 
         currentRoom = outside;  // start game outside
+        this.startingRoom = outside;
+        outside.setVisited(true);
     }
 
     /**
@@ -127,7 +130,7 @@ class Game {
     }
 
     private void showMap() {
-        System.out.print(this.mapper.mapStartingAt(null));
+        System.out.print(this.mapper.mapStartingAt(this.startingRoom));
     }
 
     // implementations of user commands:
@@ -157,13 +160,14 @@ class Game {
         }
 
         String direction = command.getSecondWord();
-
+        System.out.println("Trying to go to " + direction);
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null)
             System.out.println("There is no door!");
         else {
+            nextRoom.setVisited(true);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }

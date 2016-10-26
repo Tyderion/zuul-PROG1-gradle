@@ -40,9 +40,25 @@ public class MapperTest {
         room.setExit(Direction.WEST, second);
         String map = m.mapStartingAt(room);
 
-        assertEquals("?WW\n" +
+        assertEquals("WWW\n" +
                 "?RW\n" +
-                "?WW", map);
+                "WWW", map);
+    }
+
+    @Test
+    public void testMapThreeRoomsWestEastRecursive() {
+        Mapper m = new Mapper();
+        Room room = new Room("Irrelevant");
+        room.setVisited(true);
+        Room second = new Room("Irrelevant again");
+        second.setVisited(true);
+        room.setExit(Direction.WEST, second);
+        second.setExit(Direction.EAST, room);
+        String map = m.mapStartingAt(room);
+
+        assertEquals("WWW\n" +
+                "RRW\n" +
+                "WWW", map);
     }
 
     @Test
@@ -56,9 +72,9 @@ public class MapperTest {
         room.setExit(Direction.EAST, third);
         String map = m.mapStartingAt(room);
 
-        assertEquals("?W?\n" +
+        assertEquals("WWW\n" +
                 "?R?\n" +
-                "?W?", map);
+                "WWW", map);
     }
 
     @Test
@@ -72,8 +88,8 @@ public class MapperTest {
         second.setExit(Direction.WEST, third);
         String map = m.mapStartingAt(room);
 
-        assertEquals("?WW\n" +
+        assertEquals("WWW\n" +
                 "?RW\n" +
-                "?WW", map);
+                "WWW", map);
     }
 }

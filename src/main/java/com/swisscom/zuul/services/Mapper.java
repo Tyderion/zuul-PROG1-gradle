@@ -1,6 +1,7 @@
 package com.swisscom.zuul.services;
 
 import com.swisscom.zuul.Room;
+import com.swisscom.zuul.components.Coordinate;
 import com.swisscom.zuul.components.Direction;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,31 +24,59 @@ public class Mapper {
         }
     }
 
-    public String mapStartingAt(Room startingRoom) {
-        if (startingRoom == null) {
-            return "";
+
+    private void drawMap(Room room, Coordinate current) {
+        if (!room.isVisited() || this.map[current.x][current.y] != 'W') {
+            return;
         }
-        this.map[1][1] = 'R';
+        this.map[current.x][current.y] = 'R';
         Arrays.stream(Direction.values()).forEach(dir -> {
-            Room exit = startingRoom.getExit(dir);
+            Room exit = room.getExit(dir);
             if (exit != null) {
                 switch (dir) {
                     case EAST:
-                        this.map[1][2] = '?';
+                        if (exit.isVisited()) {
+                            this.drawMap(exit, new Coordinate(current.x, current.y + 1));
+                        } else {
+                            this.map[current.x][current.y + 1] = '?';
+                        }
                         break;
                     case WEST:
-                        this.map[1][0] = '?';
+                        if (exit.isVisited()) {
+                            this.drawMap(exit, new Coordinate(current.x, current.y - 1));
+                        } else {
+                            this.map[current.x][current.y - 1] = '?';
+                        }
                         break;
                     case NORTH:
-                        this.map[0][1] = '?';
+                        if (exit.isVisited()) {
+                            this.drawMap(exit, new Coordinate(current.x - 1, current.y));
+                        } else {
+                            this.map[current.x - 1][current.y] = '?';
+                        }
                         break;
                     case SOUTH:
-                        this.map[2][1] = '?';
+                        if (exit.isVisited()) {
+                            this.drawMap(exit, new Coordinate(current.x + 1, current.y));
+                        } else {
+                            this.map[current.x + 1][current.y] = '?';
+                        }
                         break;
 
                 }
             }
         });
+
+    }
+
+    public String mapStartingAt(Room startingRoom) {
+        System.out.println("Show map for: "+ startingRoom);
+        if (startingRoom == null) {
+            return "";
+        }
+
+        this.drawMap(startingRoom, new Coordinate(1, 1));
+
         StringBuilder map = new StringBuilder();
         for (char[] row : this.map) {
             for (char aRow : row) {

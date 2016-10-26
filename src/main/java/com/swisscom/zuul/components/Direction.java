@@ -15,7 +15,7 @@ public enum Direction {
 
     public static Direction fromString(String cmd) {
         try {
-            return Direction.valueOf(cmd);
+            return Direction.valueOf(cmd.toUpperCase());
         } catch (IllegalArgumentException e) {
             return Direction.UNKNOWN;
         }
