@@ -26,9 +26,11 @@ public class Mapper {
 
 
     private void drawMap(Room room, Coordinate current) {
-        if (!room.isVisited() || this.map[current.x][current.y] != 'W') {
+        if (!room.isVisited() || (this.map[current.x][current.y] != 'W'
+                && this.map[current.x][current.y] != '?')) {
             return;
         }
+        System.out.println("draw room " + room.getShortDescription() + " is visited" + current.toString());
         this.map[current.x][current.y] = 'R';
         Arrays.stream(Direction.values()).forEach(dir -> {
             Room exit = room.getExit(dir);
@@ -70,7 +72,7 @@ public class Mapper {
     }
 
     public String mapStartingAt(Room startingRoom) {
-        System.out.println("Show map for: "+ startingRoom);
+        System.out.println("Show map for: "+ startingRoom.getShortDescription());
         if (startingRoom == null) {
             return "";
         }
