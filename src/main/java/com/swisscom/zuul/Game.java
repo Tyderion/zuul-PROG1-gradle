@@ -6,6 +6,8 @@ import com.swisscom.zuul.components.Direction;
 import com.swisscom.zuul.services.Mapper;
 import com.swisscom.zuul.services.Parser;
 
+import java.util.Arrays;
+
 /**
  * This class is the main class of the "World of Zuul" application.
  * "World of Zuul" is a very simple, text based adventure game.  Users
@@ -170,7 +172,22 @@ class Game {
             nextRoom.setVisited(true);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            debug();
         }
+    }
+
+    private void debug() {
+        debugRoom(startingRoom);
+        Arrays.stream(Direction.values()).forEach(dir -> {
+            debugRoom(startingRoom.getExit(dir));
+        });
+    }
+
+    private void debugRoom(Room r) {
+        if (r == null) {
+            return;
+        }
+        System.out.println("Room " + r.getShortDescription() + " visited: " + r.isVisited());
     }
 
     private void look() {

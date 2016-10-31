@@ -15,6 +15,11 @@ public class Mapper {
     private char[][] map = new char[3][3];
 
     public Mapper() {
+        init();
+    }
+
+    private void init() {
+        this.map =  new char[3][3];
         char[][] map1 = this.map;
         for (int i = 0; i < map1.length; i++) {
             char[] row = map1[i];
@@ -30,7 +35,6 @@ public class Mapper {
                 && this.map[current.x][current.y] != '?')) {
             return;
         }
-        System.out.println("draw room " + room.getShortDescription() + " is visited" + current.toString());
         this.map[current.x][current.y] = 'R';
         Arrays.stream(Direction.values()).forEach(dir -> {
             Room exit = room.getExit(dir);
@@ -38,28 +42,28 @@ public class Mapper {
                 switch (dir) {
                     case EAST:
                         if (exit.isVisited()) {
-                            this.drawMap(exit, new Coordinate(current.x, current.y + 1));
+                            drawMap(exit, new Coordinate(current.x, current.y + 1));
                         } else {
                             this.map[current.x][current.y + 1] = '?';
                         }
                         break;
                     case WEST:
                         if (exit.isVisited()) {
-                            this.drawMap(exit, new Coordinate(current.x, current.y - 1));
+                            drawMap(exit, new Coordinate(current.x, current.y - 1));
                         } else {
                             this.map[current.x][current.y - 1] = '?';
                         }
                         break;
                     case NORTH:
                         if (exit.isVisited()) {
-                            this.drawMap(exit, new Coordinate(current.x - 1, current.y));
+                            drawMap(exit, new Coordinate(current.x - 1, current.y));
                         } else {
                             this.map[current.x - 1][current.y] = '?';
                         }
                         break;
                     case SOUTH:
                         if (exit.isVisited()) {
-                            this.drawMap(exit, new Coordinate(current.x + 1, current.y));
+                            drawMap(exit, new Coordinate(current.x + 1, current.y));
                         } else {
                             this.map[current.x + 1][current.y] = '?';
                         }
@@ -68,15 +72,13 @@ public class Mapper {
                 }
             }
         });
-
     }
-
     public String mapStartingAt(Room startingRoom) {
-        System.out.println("Show map for: "+ startingRoom.getShortDescription());
         if (startingRoom == null) {
             return "";
         }
 
+        init();
         this.drawMap(startingRoom, new Coordinate(1, 1));
 
         StringBuilder map = new StringBuilder();
